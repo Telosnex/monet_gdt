@@ -1,0 +1,28 @@
+{
+ "source": "libmonet_gdt wallpaper_shapes/bin/shapes.dart, arm echoes_split_noul, sheet options_o0",
+ "model": "jev-1.14.0",
+ "endpoint": "https://api.typesafe.ai/v1/systemone",
+ "headers": {
+  "TypeSafe-Danger-Zone-Images": "true"
+ },
+ "wallpaper_image": "PNG; scale = min(1, 1024/width, 1568/max side); if short side * scale < 280 then scale = 280/short side; round (wallpaper_shapes/lib/image_fit.dart)",
+ "ref": "first 16 hex chars of the request id; any stable 16-char string per request",
+ "state": {
+  "wallpaper": "wall-{ref}"
+ },
+ "assets": {
+  "wall-{ref}": "wallpaper PNG",
+  "shape-{ref}-{key}": "shape_images/<cells[key]>.png, one per key of options_o0.cells"
+ },
+ "questions": "in this order, for each key k of options_o0.cells (file order): q_{k} = {type: noul, instructions: echoes.txt with {img} -> shape-{ref}-{k}}; then d_{k} = {type: noul, **clash_domain.json with {img} filled}; then t_{k} = {type: noul, **clash_tone.json with {img} filled}",
+ "answer": "answers[<id>].noul = P(true) in [0, 1]",
+ "score": "shape score = q x (1 - d) x (1 - clamp((t - 0.7) / 0.3, 0, 1))",
+ "files_sha256": {
+  "echoes.txt": "662fcd5afe8452b49428586e510c94761cfa998460081b09d67516930dff4dfb",
+  "clash_domain.json": "dbf23cd4d606f0813287c5e84c4ceb246ca82870a4bbec6cab455330bac1ea5c",
+  "clash_tone.json": "da50565c50127d6fb1ee6b0b9202232c2ff24b4980b0e6b5e75833ee131227e3",
+  "options_o0.json": "8e7e1e05aa8adeb56db18bfb47658fa7b7b0eecf65b3ecb30f2c93459f054939",
+  "options_o1.json": "c3aa51b852d4e76f85e7bf23d5ab7dd1b5204c208b3e265a56c83146859ee398"
+ },
+ "repeat_sheet": "options_o1 (ADR D4): same 29 images, new question order and opaque keys; copied byte-identical from libmonet_gdt, record hash verified"
+}

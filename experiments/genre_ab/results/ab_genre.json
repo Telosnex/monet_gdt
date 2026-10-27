@@ -1,0 +1,196 @@
+{
+ "r": {
+  "real 2000": {
+   "megalith": 0.671,
+   "synthetic": 0.6709,
+   "genre": 0.5414,
+   "unsplash": 0.6451,
+   "wallhaven": 0.65,
+   "megalith_ci_vs_base": [
+    0.0166,
+    0.0378
+   ],
+   "synthetic_ci_vs_base": [
+    -0.0673,
+    -0.041
+   ],
+   "genre_ci_vs_base": [
+    -0.1156,
+    -0.0826
+   ],
+   "unsplash_ci_vs_base": [
+    -0.021,
+    0.0038
+   ],
+   "wallhaven_ci_vs_base": [
+    -0.0411,
+    -0.0213
+   ]
+  },
+  "real + syn (4000)": {
+   "megalith": 0.6444,
+   "synthetic": 0.7247,
+   "genre": 0.6408,
+   "unsplash": 0.6531,
+   "wallhaven": 0.6811
+  },
+  "real + genre (4000)": {
+   "megalith": 0.6407,
+   "synthetic": 0.6825,
+   "genre": 0.6929,
+   "unsplash": 0.6353,
+   "wallhaven": 0.704,
+   "megalith_ci_vs_base": [
+    -0.0132,
+    0.0064
+   ],
+   "synthetic_ci_vs_base": [
+    -0.0541,
+    -0.0301
+   ],
+   "genre_ci_vs_base": [
+    0.0395,
+    0.0652
+   ],
+   "unsplash_ci_vs_base": [
+    -0.0293,
+    -0.0067
+   ],
+   "wallhaven_ci_vs_base": [
+    0.012,
+    0.0343
+   ]
+  },
+  "real 2000 + syn 1000 + genre 1000 (4000)": {
+   "megalith": 0.6493,
+   "synthetic": 0.7164,
+   "genre": 0.6852,
+   "unsplash": 0.6535,
+   "wallhaven": 0.7081,
+   "megalith_ci_vs_base": [
+    -0.0003,
+    0.0102
+   ],
+   "synthetic_ci_vs_base": [
+    -0.0137,
+    -0.0028
+   ],
+   "genre_ci_vs_base": [
+    0.0363,
+    0.0529
+   ],
+   "unsplash_ci_vs_base": [
+    -0.0045,
+    0.0058
+   ],
+   "wallhaven_ci_vs_base": [
+    0.0203,
+    0.0339
+   ]
+  },
+  "real + syn + genre (6000)": {
+   "megalith": 0.6396,
+   "synthetic": 0.7231,
+   "genre": 0.6988,
+   "unsplash": 0.646,
+   "wallhaven": 0.7097,
+   "megalith_ci_vs_base": [
+    -0.0111,
+    0.0016
+   ],
+   "synthetic_ci_vs_base": [
+    -0.0081,
+    0.0055
+   ],
+   "genre_ci_vs_base": [
+    0.0475,
+    0.068
+   ],
+   "unsplash_ci_vs_base": [
+    -0.0127,
+    -0.0006
+   ],
+   "wallhaven_ci_vs_base": [
+    0.0209,
+    0.0369
+   ]
+  },
+  "genre 2000": {
+   "megalith": 0.5224,
+   "synthetic": 0.6501,
+   "genre": 0.7217,
+   "unsplash": 0.5599,
+   "wallhaven": 0.6837,
+   "megalith_ci_vs_base": [
+    -0.1439,
+    -0.1015
+   ],
+   "synthetic_ci_vs_base": [
+    -0.0934,
+    -0.054
+   ],
+   "genre_ci_vs_base": [
+    0.0615,
+    0.0999
+   ],
+   "unsplash_ci_vs_base": [
+    -0.1133,
+    -0.0735
+   ],
+   "wallhaven_ci_vs_base": [
+    -0.0143,
+    0.0202
+   ]
+  }
+ },
+ "jev_mean": {
+  "megalith": {
+   "artistic": 0.382999986410141,
+   "attention-grabbing": 0.4090000092983246,
+   "calm": 0.6200000047683716,
+   "complex": 0.5080000162124634,
+   "disorderly": 0.2709999978542328,
+   "dramatic": 0.3190000057220459,
+   "formal": 0.1809999942779541,
+   "playful": 0.1550000011920929,
+   "strong": 0.4300000071525574,
+   "wide": 0.48100000619888306
+  },
+  "genre": {
+   "artistic": 0.5899999737739563,
+   "attention-grabbing": 0.6890000104904175,
+   "calm": 0.37299999594688416,
+   "complex": 0.5979999899864197,
+   "disorderly": 0.21899999678134918,
+   "dramatic": 0.5820000171661377,
+   "formal": 0.1940000057220459,
+   "playful": 0.3050000071525574,
+   "strong": 0.6079999804496765,
+   "wide": 0.3440000116825104
+  },
+  "synthetic": {
+   "artistic": 0.6449999809265137,
+   "attention-grabbing": 0.6790000200271606,
+   "calm": 0.6869999766349792,
+   "complex": 0.5680000185966492,
+   "disorderly": 0.17499999701976776,
+   "dramatic": 0.5070000290870667,
+   "formal": 0.18299999833106995,
+   "playful": 0.24400000274181366,
+   "strong": 0.6819999814033508,
+   "wide": 0.5189999938011169
+  },
+  "wallhaven": {
+   "artistic": 0.49799999594688416,
+   "attention-grabbing": 0.5350000262260437,
+   "calm": 0.43799999356269836,
+   "complex": 0.4909999966621399,
+   "disorderly": 0.2939999997615814,
+   "dramatic": 0.5109999775886536,
+   "formal": 0.164000004529953,
+   "playful": 0.1979999989271164,
+   "strong": 0.5009999871253967,
+   "wide": 0.35899999737739563
+  }
+ }
+}

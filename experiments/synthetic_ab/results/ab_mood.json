@@ -1,0 +1,131 @@
+{
+ "graph_sha12": "dcdfc212a159",
+ "n": {
+  "real_train": 2000,
+  "real_test": 500,
+  "syn_train": 2000,
+  "syn_test": 300
+ },
+ "jev_mean": {
+  "real": {
+   "artistic": 0.382999986410141,
+   "attention-grabbing": 0.4090000092983246,
+   "calm": 0.6200000047683716,
+   "complex": 0.5080000162124634,
+   "disorderly": 0.2709999978542328,
+   "dramatic": 0.3190000057220459,
+   "formal": 0.1809999942779541,
+   "playful": 0.1550000011920929,
+   "strong": 0.4300000071525574,
+   "wide": 0.48100000619888306
+  },
+  "synthetic": {
+   "artistic": 0.6449999809265137,
+   "attention-grabbing": 0.6790000200271606,
+   "calm": 0.6869999766349792,
+   "complex": 0.5680000185966492,
+   "disorderly": 0.17499999701976776,
+   "dramatic": 0.5070000290870667,
+   "formal": 0.18299999833106995,
+   "playful": 0.24400000274181366,
+   "strong": 0.6819999814033508,
+   "wide": 0.5189999938011169
+  }
+ },
+ "real 2000": {
+  "real_test_r": 0.671,
+  "syn_test_r": 0.6709,
+  "real_test_per_word": {
+   "artistic": 0.63,
+   "attention-grabbing": 0.742,
+   "calm": 0.613,
+   "complex": 0.842,
+   "disorderly": 0.604,
+   "dramatic": 0.703,
+   "formal": 0.506,
+   "playful": 0.611,
+   "strong": 0.592,
+   "wide": 0.867
+  }
+ },
+ "real 2000 + syn 2000": {
+  "real_test_r": 0.6444,
+  "syn_test_r": 0.7247,
+  "real_test_per_word": {
+   "artistic": 0.592,
+   "attention-grabbing": 0.707,
+   "calm": 0.579,
+   "complex": 0.835,
+   "disorderly": 0.563,
+   "dramatic": 0.689,
+   "formal": 0.497,
+   "playful": 0.588,
+   "strong": 0.531,
+   "wide": 0.863
+  },
+  "delta_vs_real2000_ci95": [
+   -0.0373,
+   -0.0173
+  ]
+ },
+ "syn 2000": {
+  "real_test_r": 0.5938,
+  "syn_test_r": 0.7525,
+  "real_test_per_word": {
+   "artistic": 0.499,
+   "attention-grabbing": 0.69,
+   "calm": 0.518,
+   "complex": 0.805,
+   "disorderly": 0.487,
+   "dramatic": 0.653,
+   "formal": 0.41,
+   "playful": 0.549,
+   "strong": 0.487,
+   "wide": 0.839
+  },
+  "delta_vs_real2000_ci95": [
+   -0.0956,
+   -0.0616
+  ]
+ },
+ "mix 1000 + 1000": {
+  "real_test_r": 0.6435,
+  "syn_test_r": 0.7237,
+  "real_test_per_word": {
+   "artistic": 0.585,
+   "attention-grabbing": 0.711,
+   "calm": 0.578,
+   "complex": 0.834,
+   "disorderly": 0.57,
+   "dramatic": 0.69,
+   "formal": 0.484,
+   "playful": 0.595,
+   "strong": 0.526,
+   "wide": 0.863
+  },
+  "delta_vs_real2000_ci95": [
+   -0.039,
+   -0.0179
+  ]
+ },
+ "real 1000": {
+  "real_test_r": 0.6699,
+  "syn_test_r": 0.6698,
+  "real_test_per_word": {
+   "artistic": 0.625,
+   "attention-grabbing": 0.75,
+   "calm": 0.609,
+   "complex": 0.837,
+   "disorderly": 0.612,
+   "dramatic": 0.699,
+   "formal": 0.487,
+   "playful": 0.617,
+   "strong": 0.597,
+   "wide": 0.865
+  },
+  "delta_vs_real2000_ci95": [
+   -0.0062,
+   0.0041
+  ]
+ }
+}

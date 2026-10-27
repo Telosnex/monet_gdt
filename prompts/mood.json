@@ -1,0 +1,136 @@
+{
+ "source": "libmonet_gdt wallpaper_student/mood_fresh.py ask()",
+ "model": "jev-1.14.0",
+ "about": "A phone wallpaper. Judge the image as a whole: its look and feel.",
+ "words": [
+  "artistic",
+  "attention-grabbing",
+  "calm",
+  "complex",
+  "disorderly",
+  "dramatic",
+  "formal",
+  "playful",
+  "strong",
+  "wide"
+ ],
+ "score": "expected value of option_0..option_4 mapped to 0, .25, .5, .75, 1",
+ "questions": {
+  "artistic": {
+   "type": "choice",
+   "instructions": "How artistic does this wallpaper look?",
+   "criteria": {
+    "option_0": "Not at all",
+    "option_1": "Slightly",
+    "option_2": "Moderately",
+    "option_3": "Very",
+    "option_4": "Extremely"
+   }
+  },
+  "attention-grabbing": {
+   "type": "choice",
+   "instructions": "How attention-grabbing does this wallpaper look?",
+   "criteria": {
+    "option_0": "Not at all",
+    "option_1": "Slightly",
+    "option_2": "Moderately",
+    "option_3": "Very",
+    "option_4": "Extremely"
+   }
+  },
+  "calm": {
+   "type": "choice",
+   "instructions": "How calm does this wallpaper look?",
+   "criteria": {
+    "option_0": "Not at all",
+    "option_1": "Slightly",
+    "option_2": "Moderately",
+    "option_3": "Very",
+    "option_4": "Extremely"
+   }
+  },
+  "complex": {
+   "type": "choice",
+   "instructions": "How complex does this wallpaper look?",
+   "criteria": {
+    "option_0": "Not at all",
+    "option_1": "Slightly",
+    "option_2": "Moderately",
+    "option_3": "Very",
+    "option_4": "Extremely"
+   }
+  },
+  "disorderly": {
+   "type": "choice",
+   "instructions": "How disorderly does this wallpaper look?",
+   "criteria": {
+    "option_0": "Not at all",
+    "option_1": "Slightly",
+    "option_2": "Moderately",
+    "option_3": "Very",
+    "option_4": "Extremely"
+   }
+  },
+  "dramatic": {
+   "type": "choice",
+   "instructions": "How dramatic does this wallpaper look?",
+   "criteria": {
+    "option_0": "Not at all",
+    "option_1": "Slightly",
+    "option_2": "Moderately",
+    "option_3": "Very",
+    "option_4": "Extremely"
+   }
+  },
+  "formal": {
+   "type": "choice",
+   "instructions": "How formal does this wallpaper look?",
+   "criteria": {
+    "option_0": "Not at all",
+    "option_1": "Slightly",
+    "option_2": "Moderately",
+    "option_3": "Very",
+    "option_4": "Extremely"
+   }
+  },
+  "playful": {
+   "type": "choice",
+   "instructions": "How playful does this wallpaper look?",
+   "criteria": {
+    "option_0": "Not at all",
+    "option_1": "Slightly",
+    "option_2": "Moderately",
+    "option_3": "Very",
+    "option_4": "Extremely"
+   }
+  },
+  "strong": {
+   "type": "choice",
+   "instructions": "How strong does this wallpaper look?",
+   "criteria": {
+    "option_0": "Not at all",
+    "option_1": "Slightly",
+    "option_2": "Moderately",
+    "option_3": "Very",
+    "option_4": "Extremely"
+   }
+  },
+  "wide": {
+   "type": "choice",
+   "instructions": "How wide and open does this scene feel, like a broad panorama rather than a close-up?",
+   "criteria": {
+    "option_0": "Not at all",
+    "option_1": "Slightly",
+    "option_2": "Moderately",
+    "option_3": "Very",
+    "option_4": "Extremely"
+   }
+  }
+ },
+ "image": "RGB, thumbnail to long side 1024 (LANCZOS), JPEG quality 88 (mood_fresh.thumb + single31.jpg); short side < 320 scaled up to 320",
+ "endpoint": "https://api.typesafe.ai/v1/systemone",
+ "headers": {
+  "TypeSafe-Danger-Zone-Images": "true"
+ },
+ "request": "{model, state: {about, wallpaper: <ref>}, assets: {<ref>: {type: image, format: jpg, data_base64}}, questions}"
+}

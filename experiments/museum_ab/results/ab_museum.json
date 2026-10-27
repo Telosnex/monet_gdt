@@ -1,0 +1,223 @@
+{
+ "r": {
+  "real 2000": {
+   "megalith": 0.671,
+   "synthetic": 0.6709,
+   "museum": 0.5105,
+   "unsplash": 0.6451,
+   "wallhaven": 0.65,
+   "megalith_ci_vs_base": [
+    0.0166,
+    0.0378
+   ],
+   "synthetic_ci_vs_base": [
+    -0.0673,
+    -0.041
+   ],
+   "museum_ci_vs_base": [
+    -0.0137,
+    0.0107
+   ],
+   "unsplash_ci_vs_base": [
+    -0.0217,
+    0.0041
+   ],
+   "wallhaven_ci_vs_base": [
+    -0.0411,
+    -0.0215
+   ]
+  },
+  "real + syn (4000)": {
+   "megalith": 0.6444,
+   "synthetic": 0.7247,
+   "museum": 0.5125,
+   "unsplash": 0.6531,
+   "wallhaven": 0.6811
+  },
+  "real + museum (4000)": {
+   "megalith": 0.6516,
+   "synthetic": 0.6495,
+   "museum": 0.6523,
+   "unsplash": 0.5897,
+   "wallhaven": 0.6431,
+   "megalith_ci_vs_base": [
+    -0.0064,
+    0.0218
+   ],
+   "synthetic_ci_vs_base": [
+    -0.0894,
+    -0.0593
+   ],
+   "museum_ci_vs_base": [
+    0.1233,
+    0.1596
+   ],
+   "unsplash_ci_vs_base": [
+    -0.0806,
+    -0.0484
+   ],
+   "wallhaven_ci_vs_base": [
+    -0.0518,
+    -0.0232
+   ]
+  },
+  "museum + syn (4000)": {
+   "megalith": 0.5757,
+   "synthetic": 0.7245,
+   "museum": 0.6414,
+   "unsplash": 0.5701,
+   "wallhaven": 0.6519,
+   "megalith_ci_vs_base": [
+    -0.0848,
+    -0.0524
+   ],
+   "synthetic_ci_vs_base": [
+    -0.0141,
+    0.0154
+   ],
+   "museum_ci_vs_base": [
+    0.1115,
+    0.1499
+   ],
+   "unsplash_ci_vs_base": [
+    -0.0985,
+    -0.0679
+   ],
+   "wallhaven_ci_vs_base": [
+    -0.0432,
+    -0.0139
+   ]
+  },
+  "real + syn + museum (6000)": {
+   "megalith": 0.634,
+   "synthetic": 0.7148,
+   "museum": 0.6184,
+   "unsplash": 0.6176,
+   "wallhaven": 0.6584,
+   "megalith_ci_vs_base": [
+    -0.019,
+    -0.0017
+   ],
+   "synthetic_ci_vs_base": [
+    -0.0181,
+    -0.0004
+   ],
+   "museum_ci_vs_base": [
+    0.0916,
+    0.1219
+   ],
+   "unsplash_ci_vs_base": [
+    -0.0443,
+    -0.0268
+   ],
+   "wallhaven_ci_vs_base": [
+    -0.0331,
+    -0.0118
+   ]
+  },
+  "real 1000 + syn 2000 + museum 1000 (4000)": {
+   "megalith": 0.6299,
+   "synthetic": 0.7281,
+   "museum": 0.6012,
+   "unsplash": 0.6227,
+   "wallhaven": 0.6672,
+   "megalith_ci_vs_base": [
+    -0.0222,
+    -0.0072
+   ],
+   "synthetic_ci_vs_base": [
+    -0.0035,
+    0.0113
+   ],
+   "museum_ci_vs_base": [
+    0.0759,
+    0.1034
+   ],
+   "unsplash_ci_vs_base": [
+    -0.0378,
+    -0.0228
+   ],
+   "wallhaven_ci_vs_base": [
+    -0.0228,
+    -0.0046
+   ]
+  },
+  "museum 2000": {
+   "megalith": 0.5551,
+   "synthetic": 0.5876,
+   "museum": 0.6937,
+   "unsplash": 0.5131,
+   "wallhaven": 0.6279,
+   "megalith_ci_vs_base": [
+    -0.1112,
+    -0.0668
+   ],
+   "synthetic_ci_vs_base": [
+    -0.1618,
+    -0.1113
+   ],
+   "museum_ci_vs_base": [
+    0.1615,
+    0.2033
+   ],
+   "unsplash_ci_vs_base": [
+    -0.1662,
+    -0.1144
+   ],
+   "wallhaven_ci_vs_base": [
+    -0.0722,
+    -0.0341
+   ]
+  }
+ },
+ "jev_mean": {
+  "megalith": {
+   "artistic": 0.382999986410141,
+   "attention-grabbing": 0.4090000092983246,
+   "calm": 0.6200000047683716,
+   "complex": 0.5080000162124634,
+   "disorderly": 0.2709999978542328,
+   "dramatic": 0.3190000057220459,
+   "formal": 0.1809999942779541,
+   "playful": 0.1550000011920929,
+   "strong": 0.4300000071525574,
+   "wide": 0.48100000619888306
+  },
+  "museum": {
+   "artistic": 0.7590000033378601,
+   "attention-grabbing": 0.367000013589859,
+   "calm": 0.6499999761581421,
+   "complex": 0.5609999895095825,
+   "disorderly": 0.2240000069141388,
+   "dramatic": 0.27000001072883606,
+   "formal": 0.5770000219345093,
+   "playful": 0.0949999988079071,
+   "strong": 0.4259999990463257,
+   "wide": 0.41999998688697815
+  },
+  "synthetic": {
+   "artistic": 0.6449999809265137,
+   "attention-grabbing": 0.6790000200271606,
+   "calm": 0.6869999766349792,
+   "complex": 0.5680000185966492,
+   "disorderly": 0.17499999701976776,
+   "dramatic": 0.5070000290870667,
+   "formal": 0.18299999833106995,
+   "playful": 0.24400000274181366,
+   "strong": 0.6819999814033508,
+   "wide": 0.5189999938011169
+  },
+  "wallhaven": {
+   "artistic": 0.49799999594688416,
+   "attention-grabbing": 0.5350000262260437,
+   "calm": 0.43799999356269836,
+   "complex": 0.4909999966621399,
+   "disorderly": 0.2939999997615814,
+   "dramatic": 0.5109999775886536,
+   "formal": 0.164000004529953,
+   "playful": 0.1979999989271164,
+   "strong": 0.5009999871253967,
+   "wide": 0.35899999737739563
+  }
+ }
+}

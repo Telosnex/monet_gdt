@@ -1,0 +1,18 @@
+# Rebuildable or re-downloadable; never commit (sizes: data ~13 GB).
+.venv/
+__pycache__/
+.DS_Store
+data/
+jev/
+out/
+# Experiments: data/ and out/ are scratch. results/ holds the small, durable
+# evidence (votes, Jev answers, summaries) and is committed.
+experiments/*/data/
+experiments/*/out/
+
+# Flutter tool (tools/hct_lut)
+.dart_tool/
+build/
+tools/libmonet_tools/pubspec_overrides.yaml
+release/
+labels/

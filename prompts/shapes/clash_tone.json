@@ -1,0 +1,23 @@
+{
+  "instructions": {
+    "question": "Would {img} feel wrong in tone as the accent shape for `wallpaper`?",
+    "focus": "Judge mood only: playful, cute or bouncy against solemn, serious or grand. Do not judge whether its outline matches forms in the wallpaper."
+  },
+  "criteria": {
+    "true": {
+      "what": "A clear mismatch in tone",
+      "examples": [
+        "A bubbly, cartoonish shape on a somber storm or memorial photo",
+        "A harsh, aggressive spiky shape on a gentle children's illustration"
+      ]
+    },
+    "false": {
+      "what": "The tone is compatible, or the shape is tonally neutral",
+      "examples": [
+        "A soft rounded shape on a calm beach photo",
+        "A simple geometric shape on any photo",
+        "A playful shape on a colorful cartoon"
+      ]
+    }
+  }
+}

@@ -1,0 +1,62 @@
+monet_gdt: licenses of every input (ADR R1, R7). Checked 2026-10-26.
+
+TRAINING IMAGES
+- Megalith-10m (madebyollin/megalith-10m @ dcdd5dc4381e), via MONET
+  megalith10m: Flickr photos whose license at crawl was CC0, Public Domain
+  Mark, "No known copyright restrictions" (Flickr Commons) or United States
+  Government Work. None requires attribution or limits commercial use.
+  Reasoning and evidence kept per photo: ADR D9.
+  Two sets: the labeled corpus (14,400, MONET's 1024 px copies) and the
+  student-only matched set (49,434 of 50,000 chosen; same source, same
+  licenses), downloaded from each photo's Flickr URL in MONET and stored
+  at 448 px short side. 566 were gone from Flickr.
+- MONET synthetic (jasperai/monet @ a718d526ddcd, v1.2.0):
+  synthetic-flux-schnell  FLUX.1-schnell    Apache-2.0
+  synthetic-flux-klein    FLUX.2-klein-4B   Apache-2.0 (the 9B is
+                                            non-commercial; MONET's card
+                                            names the 4B)
+  synthetic-z-image       Z-Image           Apache-2.0
+  MONET card: "generated with Apache-2.0 models, whose outputs are
+  redistributable". MONET packaging: Apache-2.0.
+
+UNSPLASH / WALLHAVEN IMAGES (never trained on; not in this repository)
+- Test only: 1,951 labeled images from a private research corpus score
+  models (scripts/score_d8.py and others; ADR D8).
+- Choosing training images (ADR D11): CLIP B/32 embeddings of Unsplash
+  Lite photos picked which CC0 Megalith photos to add
+  (scripts/match_unsplash.py). Their pixels are not trained on and
+  nothing derived from them ships; only the choice of Megalith photos
+  depends on them.
+- Unsplash Lite (Hugging Face 1aurent/unsplash-lite; Unsplash Dataset
+  Terms): licensed to download and store, and to use internally to train
+  models for internal business purposes (2A); not to be disclosed,
+  published or redistributed (3A, 3B). Hence the photos, their URLs and
+  the reference embeddings are not in this repository.
+
+PRETRAINED WEIGHTS
+- PE-Core tiny (timm/vit_pe_core_tiny_patch16_384.fb @ 29e4ebb6cc;
+  facebook/PE-Core-T16-384): Apache-2.0. The student backbone; ships in
+  the app graph.
+- CLIP ViT-B/32 (OpenAI, via open_clip): MIT (OpenAI CLIP repository).
+  Used only to choose images; does not ship.
+- DINOv3 (facebook/dinov3-*, DINOv3 License, Meta): commercial use
+  permitted; redistributing the weights requires this license; no
+  military / ITAR use; acknowledge DINOv3 in publications. Used only to
+  compute font specimen data offline (D6); the weights do not ship.
+
+PROMPTS AND SHAPE IMAGES
+- prompts/shapes/shape_images: drawn from libmonet Material expressive
+  shapes; see prompts/shapes/LICENSES.txt (copied from libmonet_gdt).
+- prompts/colors.json: built by telosnex app code (first-party).
+
+FONTS
+- fonts/mood_font_model.json: names of 410 Google Fonts families and a
+  10-number mood vector per family (Jev's answers about rendered
+  specimens). No font files. Google Fonts families are under the SIL Open
+  Font License 1.1 (a few Apache-2.0 or Ubuntu Font License); names are
+  used only to identify the families. Its wall_population field (mood
+  values of 272 Pixel, Wallhaven and Unsplash Lite wallpapers) is an
+  earlier calibration, not used by the build (export_app.py
+  WALL_POP=legacy).
+- fonts/wall_population.json: the font calibration: Jev's mood values
+  for 1,500 CC0 / public-domain Megalith photos.

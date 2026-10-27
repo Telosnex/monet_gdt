@@ -1,0 +1,48 @@
+{
+ "about": "CLIP ViT-B/32 text prompts that choose the corpus (ADR D1). score = softmax(100 x cos) mass on pos vs neg. Frozen from experiments/synthetic_ab/select.py (generic) and experiments/genre_ab/select.py (genre) on 2026-10-25.",
+ "generic": {
+  "pos": [
+   "a desktop wallpaper",
+   "a phone wallpaper",
+   "a beautiful background image",
+   "a scenic wallpaper",
+   "an abstract wallpaper",
+   "digital art wallpaper"
+  ],
+  "neg": [
+   "a snapshot of people",
+   "a photo of a document or text",
+   "a screenshot",
+   "a product photo",
+   "a close-up of food",
+   "a photo of a crowd at an event"
+  ]
+ },
+ "genre": {
+  "pos": [
+   "dark fantasy digital art",
+   "video game concept art",
+   "an anime illustration",
+   "a cyberpunk neon city at night",
+   "sci-fi space art",
+   "a dark moody digital painting",
+   "an epic fantasy battle scene",
+   "a glowing neon synthwave scene"
+  ],
+  "neg": [
+   "a realistic landscape photo",
+   "a photo of a flower",
+   "a portrait photo of a person",
+   "a snapshot of people",
+   "a photo of an animal",
+   "a photo of food",
+   "a photo of a document or text",
+   "a classical oil painting",
+   "an interior design render of a room",
+   "a product photo on a white background",
+   "a floor plan",
+   "a furniture catalog image",
+   "an object isolated on a white background"
+  ]
+ }
+}

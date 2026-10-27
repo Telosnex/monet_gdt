@@ -1,0 +1,24 @@
+{
+  "instructions": {
+    "question": "Would {img} look out of place as the accent shape for `wallpaper` because it evokes a different world than the wallpaper does?",
+    "focus": "Judge what the shape evokes: pixels and screens, technology, nature, ornament, toys. Do not judge whether its outline matches forms in the wallpaper. A plain geometric shape evokes no particular world."
+  },
+  "criteria": {
+    "true": {
+      "what": "The shape clearly evokes a world the wallpaper does not",
+      "examples": [
+        "A stepped pixel or 8-bit shape on a natural landscape",
+        "A pixel shape on a classical oil painting",
+        "A leafy organic shape on a circuit-board or code screenshot"
+      ]
+    },
+    "false": {
+      "what": "The shape is neutral, or evokes the same world as the wallpaper",
+      "examples": [
+        "A simple geometric shape on any photo",
+        "A pixel shape on a retro video game scene",
+        "A flower or leaf shape on a garden photo"
+      ]
+    }
+  }
+}
