@@ -1,0 +1,22 @@
+name: monet_gdt_v2_labels
+description: >-
+  Color-head targets from monet_ui's MonetGdtRule20261030 (v2): Celebi 128 on
+  telosnex's 96 px thumbnail, then the scorer's P/S/T.
+publish_to: none
+
+environment:
+  sdk: '>=3.13.0 <4.0.0'
+  flutter: '>=3.47.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  # Local checkout: the scorer is not in a release yet. Each output records
+  # the scorer file's sha256, so labels stay traceable.
+  crypto: any
+  monet_ui:
+    path: ../../../monet_ui
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

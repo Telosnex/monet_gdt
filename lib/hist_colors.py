@@ -132,9 +132,12 @@ def relf(c, ref):
 
 
 class HistNet(torch.nn.Module):
-    def __init__(self, emb_dim, d=96, latents=16):
+    def __init__(self, emb_dim, d=96, latents=16, neigh=False):
         super().__init__()
-        self.inp = torch.nn.Sequential(torch.nn.Linear(5, d), torch.nn.GELU(), torch.nn.Linear(d, d))
+        # neigh: a sixth input per color, log share of the image within ΔE 10
+        # of it (its neighborhood), next to its own share
+        self.neigh = neigh
+        self.inp = torch.nn.Sequential(torch.nn.Linear(6 if neigh else 5, d), torch.nn.GELU(), torch.nn.Linear(d, d))
         self.lat = torch.nn.Parameter(torch.randn(latents, d) * 0.02)
         self.read = torch.nn.MultiheadAttention(d, 4, batch_first=True)
         self.img = torch.nn.Linear(emb_dim, d) if emb_dim else None
@@ -145,10 +148,11 @@ class HistNet(torch.nn.Module):
         self.qatt = torch.nn.MultiheadAttention(d, 4, batch_first=True)
         self.score = torch.nn.Sequential(torch.nn.Linear(2 * d + 12, 128), torch.nn.GELU(), torch.nn.Linear(128, 1))
 
-    def context(self, lab, sh, mask, emb):
-        x = torch.cat(
-            [lab, torch.hypot(lab[..., 1], lab[..., 2])[..., None], (torch.log(sh + 1e-6) / 14)[..., None]], -1
-        )
+    def context(self, lab, sh, mask, emb, nb=None):
+        x = [lab, torch.hypot(lab[..., 1], lab[..., 2])[..., None], (torch.log(sh + 1e-6) / 14)[..., None]]
+        if self.neigh:
+            x.append((torch.log(nb + 1e-6) / 14)[..., None])
+        x = torch.cat(x, -1)
         h = self.inp(x)
         z, _ = self.read(self.lat.expand(len(h), -1, -1), h, h, key_padding_mask=~mask)
         if self.img is not None:

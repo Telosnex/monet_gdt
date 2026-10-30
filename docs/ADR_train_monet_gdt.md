@@ -1,5 +1,5 @@
 # ADR 001 — How to train a monet GDT model
-Status: Accepted (2026-10-26)
+Status: Accepted (2026-10-26). Amended 2026-10-30: colors (D12).
 
 Reference implementation: libmonet_gdt (private research repository, not
 reproducible). App contract: telosnex `docs/design/ADR_monet_gdt.md`
@@ -30,7 +30,7 @@ build from CC0 and public-domain images, which a second person can repeat.
 | R2 | One command rebuilds every artifact from the raw images and the stored Jev answers. | owner | hard |
 | R3 | The output graph has the app contract: input `image` uint8 [h, w, 3 or 4]; outputs `scores` [1, 10], `feature` [1, 192], `colors` [3, 3], `shapes` [1, 29]. | platform | hard |
 | R4 | Each head trains on the feature that the shipped graph computes. | owner | hard |
-| R5 | The pick rules that won the A/Bs stay fixed: colors rule_v1 (D10), fonts band (0.5, 0.8), shapes echoes x (1 − domain) x strong tone. | owner | hard |
+| R5 | The pick rules that won the A/Bs stay fixed: colors rule_v1 (D10; replaced by D12 on 2026-10-30), fonts band (0.5, 0.8), shapes echoes x (1 − domain) x strong tone. | owner | hard |
 | R6 | Jev questions are byte-identical to the validated ones. | owner | hard |
 | R7 | Every pretrained weight file and dataset has a recorded license. | owner | hard |
 | R8 | Jev cost for a full build is less than $100. | assumed | soft |
@@ -119,7 +119,8 @@ D4: The test split gets a second run of each call, with a new shape order.
     This gives the Jev ceiling.
     Because: R2 (the report needs a ceiling)
 
-D10: Colors use rule_v1, chosen by blind A/Bs
+D10: (Replaced in the graph by D12 on 2026-10-30.)
+     Colors use rule_v1, chosen by blind A/Bs
      (experiments/color_prompt_ab):
      - Options: the <= 12 merged groups; each shows its most chromatic
        member with >= 1% of the group (vivid merge).
@@ -200,6 +201,51 @@ D7: Jev answers are stored as raw JSONL, one line per call, keyed by photo
     ID and prompt sha256. Training reads only these files.
     Because: R2
     Instead of: derived label files: they hide which prompt made them.
+
+D12 (2026-10-30): The graph's colors come from a head trained on the
+    triads of monet_ui's MonetGdtRule20261030, not on Jev's color labels.
+    - Labels: QuantizerCelebi, 128 clusters, on telosnex's 96 px
+      thumbnail (integer box average to 384, then 96), then the rule.
+      The rule chooses colorful colors before large areas. A neutral is
+      never chosen while a colorful option with 1% of the image is
+      unused. `tools/v2_labels` writes the labels for all 77,410 images
+      (corpus and matched) in about 10 minutes.
+    - Head: lib/hist_colors.HistNet, neigh=True. Each color in the
+      graph's list gives CIELAB, chroma, share, and neighborhood share
+      (the share of list colors within ΔE 10). The image feature is one
+      more token. S is scored given P, and T given P and S.
+    - Pick: argmax per role over the full list. S and T skip colors
+      within ΔE 10 of an earlier pick.
+    - Role order: S and T swap when S is the larger step from P (HCT
+      hue if all three are colorful, else ΔE76), exactly as the rule.
+      The graph reads HCT hue and "colorful" from two tables that
+      monet_ui writes for the graph's 32,768 colors.
+    - Steps (scripts/rebuild_graph.sh): build_graph.py builds a base
+      graph with placeholder colors. scripts/v2_prep.py takes the
+      feature, the color list and the thumbnail per image from it.
+      tools/v2_labels writes the labels. Then scripts/train_colors_v2.py,
+      then scripts/build_graph_v2.py, which replaces the base graph's
+      color step. Scores, feature and shapes stay byte-identical to the
+      base graph's, and to 2026.10.27's for the same student and shape
+      head.
+    - Test set: the matched holdout (4% of matched images by sha256 of
+      the ID, 1,934 images). No step trains or tunes on it.
+    Because: R10. Blind votes (appendix B2):
+    - The first version of the rule beat the old on-device scorer 51 to 12.
+    - A head with a speck mask beat the 2026.10.27 graph 34 to 8.
+    - This head beat the head with the mask 35 to 15.
+    Instead of:
+    - Jev color labels + rule_v1: the rule's 12 options limit any head
+      to ΔE 14 from the rule's triad. A pick from the full list can come
+      within ΔE 1.8.
+    - Roles scored independently, then rule_v1 (ΔE 29.2 vs 25.7).
+    - The head without the neighborhood input, with a mask (S and T
+      cover >= 0.7% of the image): lost 15 to 35.
+    - The head's own S/T order: lost 13 to 32 against the rule's order.
+    - No ΔE 10 exclusion: 8.6% of triads then hold two colors within
+      ΔE 10 of each other.
+    - The rule in Dart in the app: no visible gain (the head won 13 to
+      6, 41 ties), and the graph is no longer complete for other users.
 ```
 
 ## 4. Invariants
@@ -219,6 +265,16 @@ I3: The graph's scores, feature and colors are bit-identical with and
 
 I4: The app parity test passes on the new graph and assets.
     Pinned by: telosnex libmonet_gdt_parity_test.dart.
+
+I5: The 2026.10.30 graph gives the same scores, feature and shapes as the
+    2026.10.27 graph, and the same colors as the PyTorch color step.
+    If violated: moods, fonts and shapes change without a test.
+    Pinned by: scripts/build_graph_v2.py check (300 held-out images).
+
+I6: The graph's role order equals MonetGdtRule20261030's role order.
+    If violated: S and T swap against the rule on some images.
+    Pinned by: tools/v2_labels/test/v2_order_test.dart on the 1,934
+    held-out triads.
 ```
 
 ## 5. Formats & names
@@ -232,12 +288,20 @@ I4: The app parity test passes on the new graph and assets.
 - Shape order: the graph metadata `libmonet_gdt.shapes`.
 - `out/report.json`: per head, test metrics against Jev and the Jev
   ceiling; graph size and sha256.
+- Colors (D12): `out/v2/prep_<shard>.npz`, `thumb96_<shard>.bin`,
+  `labels_<shard>.jsonl` (`{i, triad: [P, S, T] hex}`),
+  `labels_meta.json` (the rule file's sha256, the quantizer and the
+  cluster count), `color_model.pt`, `monet_gdt_v2.onnx`, `check.json`.
+- Version: the release date, Y.M.D without zero padding, `.N` for a second
+  release on one day. ONNX `model_version` = YYYYMMDD x 100 + N.
+  CHANGELOG.md lists each version.
 
 ## 6. Non-goals
 
 ```
 NG1: New Jev questions or new pick rules.
      Reopens when: a blind A/B on test images beats a fixed rule.
+     Reopened 2026-10-30 for colors (D12).
 NG2: A new backbone or input size.
      Reopens when: the build is reproducible (I1) and a head is limited by
      the feature.
@@ -263,7 +327,16 @@ NG3: Training on Wallhaven, Unsplash or other corpora without a clear
    centered). The final mix costs everyday photos 0.022 of mood r.
    Recheck every test set in each build.
 6. The A/Bs covered mood only. Colors and shapes are measured against
-   the labels (appendix B).
+   the labels (appendix B). From 2026-10-30, blind votes also cover
+   colors (D12).
+7. The color labels depend on monet_ui code (D12). A change to
+   MonetGdtRule20261030 or QuantizerCelebi changes the labels.
+   labels_meta.json records the rule file's sha256. Keep the rule file
+   unchanged, and give a changed rule a new dated name.
+8. The 2026.10.30 head picks small color areas more often. Jev found a
+   small speck color on 12 of 512 held-out images, against 0 for
+   2026.10.27. The blind votes preferred the head (35 to 15) with this
+   cost.
 
 ## 8. Workplan
 
@@ -350,6 +423,44 @@ caching the uncropped half 1.44x; bf16/fp16 no gain on MPS.
 Dead ends: color model on student vs teacher features (same ΔE); no-crop
 student (D8 0.657); reduced precision on MPS.
 
+### B2. Results, colors (2026-10-30; D12)
+
+ΔE is ΔE76 to the label triad, mean over P, S and T. Blind votes: the
+owner, on cards that show P, S and T next to the wallpaper, with random
+sides and no names. The first vote used 64 corpus images (40 to 3 on the
+images where Jev found a missing colorful color). The other votes and the
+Jev checks used matched-holdout images that no earlier vote or check used.
+
+| Graph | ΔE to rule triad (matched holdout) |
+|---|---|
+| 2026.10.27 (Jev head + rule_v1) | 32.3 |
+| Head scores roles independently, then rule_v1 | 29.2 |
+| Head with S given P, T given P and S | 25.7 |
+| Head with S given P, T given P and S, mask 0.7% | 24.2 |
+| 2026.10.30 (neighborhood input, no mask) | 24.6 |
+
+| Blind vote (images where the triads differ) | Result | p |
+|---|---|---|
+| Rule, first version, vs old on-device scorer (ScorerTriad) | 51 to 12 | < 0.001 |
+| Head + mask vs 2026.10.27 | 34 to 8 | < 0.001 |
+| Rule's S/T order vs the head's order | 32 to 13 | 0.007 |
+| Head + mask vs the rule in Dart | 13 to 6, 41 ties | 0.17 |
+| 2026.10.30 vs head + mask (two sessions) | 35 to 15 | 0.007 |
+
+Jev checks on 512 held-out images (flag at p >= 0.9):
+
+| Check | 2026.10.27 | Head + mask | 2026.10.30 |
+|---|---|---|---|
+| Missing colorful color, with a dull swatch | 43 | 7 | 3 |
+| Small speck color | 0 | 1 | 12 |
+| Same hue twice | 1 | 1 | 0 |
+
+Graph: 5.55 MB (+4 KB). Median per image, desktop Mac CPU: 15.3 ms vs
+14.6 ms on 1 thread, 9.7 ms vs 8.8 ms on 4 threads. The extra time is the
+neighborhood share (n x n distances, n <= 2,048). The fp16 head changes
+4 of 1,934 held-out triads against fp32 (3 shifts of ΔE 2.8-9.0, 1 other
+T).
+
 ### C. Revision history
 
 - 2026-10-25: draft.
@@ -365,3 +476,7 @@ student (D8 0.657); reduced precision on MPS.
 - 2026-10-26: student adds 49,434 wallpaper-matched Megalith photos
   (D11); D8 now the 1,951 held-out images; results (appendix B).
 - 2026-10-26: accepted; the build shipped in telosnex.
+- 2026-10-30: colors from a head trained on MonetGdtRule20261030's
+  triads (D12, I5, I6, risks 7-8, appendix B2). R5 and D10 no longer set
+  the graph's colors. Versions are release dates (section 5,
+  CHANGELOG.md).

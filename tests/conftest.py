@@ -12,7 +12,7 @@ import pytest
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'lib'))
 
-GRAPH = os.environ.get('MONET_GDT_GRAPH', os.path.join(ROOT, 'out', 'graph', 'monet_gdt_w8_shapes.onnx'))
+GRAPH = os.environ.get('MONET_GDT_GRAPH', os.path.join(ROOT, 'out', 'v2', 'monet_gdt_v2.onnx'))
 MOOD = os.environ.get('MONET_GDT_MOOD', os.path.join(ROOT, 'out', 'app', 'monet_gdt_mood.json'))
 
 

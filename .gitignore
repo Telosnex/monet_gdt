@@ -10,9 +10,9 @@ out/
 experiments/*/data/
 experiments/*/out/
 
-# Flutter tool (tools/hct_lut)
+# Flutter tools
 .dart_tool/
 build/
-tools/libmonet_tools/pubspec_overrides.yaml
+tools/*/pubspec_overrides.yaml
 release/
 labels/

@@ -39,6 +39,16 @@ def test_colors_are_rgb(session):
     assert c.min() >= 0 and c.max() <= 255
 
 
+@pytest.mark.parametrize('seed', range(4))
+def test_colors_are_distinct(session, seed):
+    # S and T skip colors within ΔE 10 of an earlier pick (ADR D12).
+    import color_space
+
+    lab = color_space.rgb2lab(run(session, wallpaper(seed=seed))['colors'] / 255)
+    d = np.linalg.norm(lab[:, None] - lab[None], axis=-1)
+    assert d[np.triu_indices(3, 1)].min() >= 10
+
+
 def test_rgba_with_opaque_alpha_matches_rgb(session):
     a, b = run(session, wallpaper(channels=3)), run(session, wallpaper(channels=4))
     for k in a:
@@ -79,5 +89,6 @@ def test_release_metadata(session):
     meta = session.get_modelmeta()
     m = meta.custom_metadata_map
     assert meta.producer_name == 'monet_gdt' and m['version'] == graph_meta.VERSION
+    assert meta.version == graph_meta.model_version()
     assert m['monet_gdt.mood_words'].split(',') == WORDS
     assert 'libmonet_gdt.shapes' not in m

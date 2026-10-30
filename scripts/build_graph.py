@@ -2,11 +2,12 @@
 # settings (lib/graph_front.py, from libmonet_gdt onnx_graph.py; the app's file is
 # wallpaper12_o20_fr_cg_c1x10_w8_shapes.onnx: SINGLE, TWO, opset 20, fast
 # RoPE, backbone MatMuls 8-bit block 32, large weights stored fp16).
-# Core: out/$STUDENT/student.pt (default student_aug, the crop student) + the teacher's font head (out/teacher) +
-# the color model (out/colors/color_model_<FEAT>.pt, roles independent) +
-# rule_v1 (graph_rule.Rule, HCT table out/graph/hct_lut.f32).
-# Outputs as the shipped graph: scores (1, 10), feature (1, 192), colors
-# (3, 3) int64 RGB; `shapes` is added by add_shape_head.py.
+# Core: out/$STUDENT/student.pt (default student_aug, the crop student) + the
+# teacher's font head (out/teacher).
+# Outputs: scores (1, 10), feature (1, 192), colors (3, 3) int64 RGB;
+# `shapes` is added by add_shape_head.py. This is the base graph: its colors
+# are the three largest colors of the image's color list, and
+# build_graph_v2.py replaces them with the color step (ADR D12).
 #   .venv/bin/python -u scripts/build_graph.py build | check
 # check: on the 1,342 test images (long side <= 2048, Lanczos, RGBA as the
 #   app decodes): fp32 graph vs PyTorch on the graph's own front-end
@@ -28,7 +29,6 @@ import timm  # noqa: E402
 import graph_front as OG  # noqa: E402  (front(), fast_rope, settings from the env above)
 
 OUT = os.path.join(ROOT, 'out', 'graph')
-FEAT = os.environ.get('FEAT', 'teacher')
 NAME = 'monet_gdt'
 
 
@@ -39,9 +39,6 @@ def log(*a):
 class Core(torch.nn.Module):
     def __init__(self):
         super().__init__()
-        import hist_colors as HC
-        import graph_rule as GR
-
         sk = torch.load(
             os.path.join(ROOT, 'out', os.environ.get('STUDENT', 'student_aug'), 'student.pt'), weights_only=False
         )
@@ -56,26 +53,18 @@ class Core(torch.nn.Module):
         self.l2.load_state_dict({'weight': tk['head']['4.weight'], 'bias': tk['head']['4.bias']})
         self.register_buffer('mu', torch.as_tensor(tk['feat_mean']).float().reshape(1, -1))
         self.register_buffer('sd', torch.as_tensor(tk['feat_std']).float().reshape(1, -1))
-        ck = torch.load(
-            os.path.join(ROOT, 'out', 'colors', f'color_model_{FEAT}.pt'), map_location='cpu', weights_only=False
-        )
-        self.net = HC.HistNet(192)
-        self.net.load_state_dict(ck['state_dict'])
-        self.net.eval()
-        self.rule = GR.Rule(os.path.join(OUT, 'hct_lut.f32'))
 
-    def probs(self, codes, share, feat):
-        mask = (share > 0)[None]
-        rgb = torch.stack([codes // 1024, (codes // 32) % 32, codes % 32], -1).float() * 8 + 4
-        lab = (OG.rgb2lab_t(rgb / 255) / 100)[None]
-        h, q = self.net.context(lab, share[None], mask, feat)
-        return torch.cat([torch.softmax(self.net.logits(h, q, r, lab, mask), -1) for r in range(3)])  # (3, n)
+    @staticmethod
+    def largest(codes, share):
+        """Placeholder colors: the three colors with the largest share, RGB (3, 3)."""
+        c = codes[torch.topk(share, 3).indices]
+        return (torch.stack([c // 1024, (c // 32) % 32, c % 32], -1) * 8 + 4).long()
 
     def forward(self, o_img, codes, share):
         f = self.bb(o_img / 127.5 - 1)
         scores = torch.sigmoid(self.l2(torch.nn.functional.gelu(self.l1((f - self.mu) / self.sd))))
         feat = torch.nn.functional.normalize(f, dim=-1)
-        return scores, feat, self.rule(codes, share, self.probs(codes, share, feat))
+        return scores, feat, self.largest(codes, share)
 
 
 def export_core(path):

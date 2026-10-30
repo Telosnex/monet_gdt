@@ -4,12 +4,11 @@ packages:
   androidx_graphics_shapes:
     dependency: transitive
     description:
-      path: "packages/androidx_graphics_shapes"
-      ref: "37da7df46ab5eb60dc42e440a9e71d5159059f16"
-      resolved-ref: "37da7df46ab5eb60dc42e440a9e71d5159059f16"
-      url: "https://github.com/Telosnex/dart-flutter-packages.git"
-    source: git
-    version: "1.7.0"
+      name: androidx_graphics_shapes
+      sha256: "36d7f1728af5c91a5c6c84fa9d189b691675cc07dcc6c6f79cb32c38b7ec880d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   async:
     dependency: transitive
     description:
@@ -58,14 +57,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.19.1"
+  crypto:
+    dependency: "direct main"
+    description:
+      name: crypto
+      sha256: e3626ae6270383c9e3a549f34c9e4cd26c09ae6a9adaab2bf4737a00340efdc4
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.8"
   cupertino_ui:
     dependency: transitive
     description:
       name: cupertino_ui
-      sha256: a47c4e7c66fd7444a063a602597fceb238f705c3f6b1322bc0053d0a2638ee6e
+      sha256: e003b87afde18cb396ec15928c7894063d64af04462c68df9a1404c461316dd2
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.4"
+    version: "1.1.5"
   fake_async:
     dependency: transitive
     description:
@@ -129,15 +136,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.2"
-  libmonet:
-    dependency: "direct main"
-    description:
-      path: "."
-      ref: c4c2cc09c5e710e5f6ead53fd6e905bd5d20b854
-      resolved-ref: c4c2cc09c5e710e5f6ead53fd6e905bd5d20b854
-      url: "https://github.com/Telosnex/libmonet.git"
-    source: git
-    version: "1.0.0"
   logger:
     dependency: transitive
     description:
@@ -166,10 +164,10 @@ packages:
     dependency: transitive
     description:
       name: material_ui
-      sha256: e4031746f96c8316864d9b92bce375f1320a36ed56e166307e1e1bda9d90b4ab
+      sha256: feb289df1e5f9ed9522f9fe3d909432a7f7bc76943f16abad09f80a16cd25196
       url: "https://pub.dev"
     source: hosted
-    version: "1.8.0"
+    version: "1.9.0"
   meta:
     dependency: transitive
     description:
@@ -178,6 +176,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.19.0"
+  monet_ui:
+    dependency: "direct main"
+    description:
+      path: "../../../monet_ui"
+      relative: true
+    source: path
+    version: "1.0.0"
   path:
     dependency: transitive
     description:
@@ -259,10 +264,10 @@ packages:
     dependency: transitive
     description:
       name: vector_math
-      sha256: "92b9910f66ed1057fd4da7b040ae7c74cafacf885bdc81be496928d5049b032d"
+      sha256: fa49e1674cb84acb900141714e6c6e1f9ae099827c24d141430ff6819db4e1bc
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.3"
+    version: "2.4.4"
   vm_service:
     dependency: transitive
     description:
