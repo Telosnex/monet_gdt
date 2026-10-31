@@ -3,7 +3,7 @@
 #   STUDENT=student_matched50k sh scripts/rebuild_graph.sh
 # 1-4: the base graph (scores, feature, shapes; placeholder colors).
 # 5-9: the color step: data, labels from monet_ui, color head, final graph.
-# Needs Flutter (tools/v2_labels) and a monet_ui checkout next to this repo.
+# Needs Flutter (tools/v2_labels; monet_ui comes from pub.dev).
 cd "$(dirname "$0")/.." || exit 1
 V=.venv/bin/python; export PYTHONWARNINGS=ignore
 : "${STUDENT:?set STUDENT}"; export STUDENT
@@ -16,7 +16,7 @@ step "3 add shape head"; $V -u scripts/add_shape_head.py out/graph/monet_gdt_w8.
 step "4 base checks"; N=300 $V -u scripts/build_graph.py check > out/logs/rb4_check.log 2>&1 || exit 1
 rm -f out/graph/monet_gdt_fp32.onnx
 step "5 color data"; $V -u scripts/v2_prep.py > out/logs/rb5_prep.log 2>&1 || exit 1
-step "6 color labels and tables (monet_ui)"
+step "6 color labels and tables (monet_ui)"; rm -f out/v2/labels_*.jsonl
 (cd tools/v2_labels && MONET_V2_DIR="$D" flutter test test/v2_labels_test.dart && MONET_V2_DIR="$D" flutter test test/v2_tables_test.dart) > out/logs/rb6_labels.log 2>&1 || exit 1
 step "7 color head"; $V -u scripts/train_colors_v2.py > out/logs/rb7_colors.log 2>&1 || exit 1
 step "8 graph"; $V -u scripts/build_graph_v2.py build > out/logs/rb8_graph.log 2>&1 || exit 1

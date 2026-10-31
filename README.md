@@ -81,9 +81,7 @@ Requirements:
 - Mac with Apple silicon, 32+ GB RAM, about 40 GB free disk.
 - Python 3.12 with [uv](https://docs.astral.sh/uv/).
 - Flutter 3.47+ (for `tools/v2_labels`, which writes the color labels
-  with monet_ui).
-- A [monet_ui](https://github.com/Telosnex/monet_ui) checkout next to
-  this repo (`../monet_ui`).
+  with [monet_ui](https://pub.dev/packages/monet_ui) 1.0.1).
 - Labels: [Telosnex/monet_gdt_labels](https://huggingface.co/datasets/Telosnex/monet_gdt_labels)
   (all stored Jev answers and id lists, CC0), or a Jev API key
   (`USER_API_KEY_JEV`) to label mood and shapes from scratch.

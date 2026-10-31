@@ -179,10 +179,11 @@ packages:
   monet_ui:
     dependency: "direct main"
     description:
-      path: "../../../monet_ui"
-      relative: true
-    source: path
-    version: "1.0.0"
+      name: monet_ui
+      sha256: ee2a1480e03e3aa823ebd0c8ba37ce00909fc22aba68c6d0449995de3174c4b3
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   path:
     dependency: transitive
     description:

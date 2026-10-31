@@ -11,11 +11,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  # Local checkout: the scorer is not in a release yet. Each output records
-  # the scorer file's sha256, so labels stay traceable.
   crypto: any
-  monet_ui:
-    path: ../../../monet_ui
+  # Pinned exactly: the labels depend on this code. labels_meta.json records
+  # the version and the rule file's sha256.
+  monet_ui: 1.0.1
 
 dev_dependencies:
   flutter_test:

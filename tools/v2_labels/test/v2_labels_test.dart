@@ -3,8 +3,8 @@
 // thumbnail, then monet_ui's MonetGdtRule20261030. One jsonl per shard:
 // out/v2/labels_<shard>.jsonl, rows {i, triad: [P, S, T] hex}; plus
 // out/v2/labels_meta.json (scorer sha256, settings).
-// Env: MONET_V2_DIR (out/v2), MONET_V2_SHARDS ("a-b", inclusive),
-// MONET_V2_SCORER (path of monet_gdt_rule_2026_10_30.dart, for the sha256).
+// Env: MONET_V2_DIR (out/v2); MONET_V2_SHARDS ("a-b", inclusive; default all).
+// Shards with a labels file are skipped.
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
@@ -20,18 +20,32 @@ void main() {
   test('v2 labels', () async {
     final env = Platform.environment;
     final dir = env['MONET_V2_DIR'];
-    final range = env['MONET_V2_SHARDS'];
-    final scorer = env['MONET_V2_SCORER'];
-    if (dir == null || range == null || scorer == null) {
-      fail('set MONET_V2_DIR, MONET_V2_SHARDS (a-b), MONET_V2_SCORER');
-    }
+    final range = env['MONET_V2_SHARDS'] ?? '0-999';
+    if (dir == null) fail('set MONET_V2_DIR');
+    // The monet_ui package that this test runs, from the package config.
+    final configFile = File('.dart_tool/package_config.json').absolute;
+    final config =
+        jsonDecode(configFile.readAsStringSync()) as Map<String, dynamic>;
+    final pkg = (config['packages'] as List)
+        .cast<Map<String, dynamic>>()
+        .firstWhere((p) => p['name'] == 'monet_ui');
+    final root = configFile.uri.resolve('${pkg['rootUri']}/');
+    final scorer = root
+        .resolve('lib/extract/monet_gdt_rule_2026_10_30.dart')
+        .toFilePath();
+    final version = RegExp(r'^version: (\S+)', multiLine: true)
+        .firstMatch(
+          File(root.resolve('pubspec.yaml').toFilePath()).readAsStringSync(),
+        )!
+        .group(1);
     final clusters = int.parse(
       env['MONET_V2_CLUSTERS'] ?? '$kMonetGdtRule20261030Clusters',
     );
     final sha = sha256.convert(File(scorer).readAsBytesSync()).toString();
     File('$dir/labels_meta.json').writeAsStringSync(
       jsonEncode({
-        'scorer': 'monet_ui lib/extract/monet_gdt_rule_2026_10_30.dart',
+        'scorer':
+            'monet_ui $version lib/extract/monet_gdt_rule_2026_10_30.dart',
         'scorer_sha256': sha,
         'quantizer': 'QuantizerCelebi',
         'clusters': clusters,
