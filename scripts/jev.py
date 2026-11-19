@@ -3,7 +3,7 @@
 # tokens, answers, ...derived} or {id, call, error}.
 #   mood    prompts/mood.json
 #   shapes  prompts/shapes.json + prompts/shapes/*
-#   colors  bodies from telosnex dev/monet_gdt/color_requests_test.dart
+#   colors  bodies from telosnex dev/design/monet_gdt/color_requests_test.dart
 #           (app code); this file only attaches the JPEG and sends it.
 #           prompts/colors.json is the template those bodies must match.
 import base64

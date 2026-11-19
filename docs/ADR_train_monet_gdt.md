@@ -108,7 +108,7 @@ D3: Each image gets three Jev calls, all on jev-1.14.0. Prompts are files
     - mood: 10 choice questions, 5 levels, expected value (mood_fresh.ask).
     - colors: the production color request (P, S, T) over the app's
       options (D10), built by telosnex
-      `dev/monet_gdt/color_requests_test.dart`; `prompts/colors.json` is
+      `dev/design/monet_gdt/color_requests_test.dart`; `prompts/colors.json` is
       the template. Labels are the per-role probabilities.
     - shapes: echoes_split_noul, 87 Noul questions over 29 shape images.
     Because: R6

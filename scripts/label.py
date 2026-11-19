@@ -2,7 +2,7 @@
 #   <venv>/bin/python -u scripts/label.py <mood|shapes|colors> <ids.json> <out.jsonl> [--parallel N] [--colors-dir DIR] [--sheet o0|o1]
 # <ids.json>: list of selection IDs (data/selection.jsonl). Images:
 # data/images/<part>/<id>.jpg. colors reads the app-built requests from
-# --colors-dir (telosnex dev/monet_gdt/color_requests_test.dart output).
+# --colors-dir (telosnex dev/design/monet_gdt/color_requests_test.dart output).
 # Appends to <out.jsonl>; skips IDs already answered without error.
 # Logs every 10 s: calls done / total, failures, tokens, elapsed, remaining.
 import argparse

@@ -1,6 +1,6 @@
 # CONCLUDED 2026-10-25. Only fetched synthetic images early for the color
 # options A/B (<=12 merged vs 32 vs 255; run with telosnex
-# dev/wallpaper_colors/run.dart). <=12 won 53-36.
+# dev/design/wallpaper_colors/run.dart). <=12 won 53-36.
 #
 # Synthetic images for the color-options A/B before the main download gets
 # to them: stream synthetic tars from the start and keep selected rows
