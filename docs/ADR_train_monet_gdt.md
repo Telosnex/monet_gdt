@@ -246,6 +246,12 @@ D12 (2026-10-30): The graph's colors come from a head trained on the
       ΔE 10 of each other.
     - The rule in Dart in the app: no visible gain (the head won 13 to
       6, 41 ties), and the graph is no longer complete for other users.
+    - HCT inputs per color (sin and cos of hue, chroma, the rule's
+      colorful flag), trained to 40 epochs, patience 8: ΔE 22.97 to the
+      rule's triads (released 24.6), same Jev flags, and blind ties: 10
+      to 19 on cards, 21 to 20 (19 ties) on the grid. Its S is about 3.5
+      L* darker than the released head's. Closer to the rule no longer
+      means better triads; a gain needs another target, such as votes.
 ```
 
 ## 4. Invariants
@@ -438,6 +444,7 @@ Jev checks used matched-holdout images that no earlier vote or check used.
 | Head with S given P, T given P and S | 25.7 |
 | Head with S given P, T given P and S, mask 0.7% | 24.2 |
 | 2026.10.30 (neighborhood input, no mask) | 24.6 |
+| HCT inputs, longer training (not shipped) | 22.97 |
 
 | Blind vote (images where the triads differ) | Result | p |
 |---|---|---|
@@ -446,14 +453,25 @@ Jev checks used matched-holdout images that no earlier vote or check used.
 | Rule's S/T order vs the head's order | 32 to 13 | 0.007 |
 | Head + mask vs the rule in Dart | 13 to 6, 41 ties | 0.17 |
 | 2026.10.30 vs head + mask (two sessions) | 35 to 15 | 0.007 |
+| HCT inputs vs 2026.10.30, cards | 10 to 19, 16 ties | 0.14 |
+| HCT inputs vs 2026.10.30, grid | 21 to 20, 19 ties | 1.0 |
+
+On cards, the swatches are large, and the owner judged them as colors on
+their own. The grid shows the two triads in columns on either side of the
+wallpaper. Use the grid (`tools/vote.py`, `/grid?blind=1`) for color
+votes. The HCT vote was decided on the grid. The earlier votes used
+cards. The vote logs were not kept; the counts here are the record.
 
 Jev checks on 512 held-out images (flag at p >= 0.9):
 
-| Check | 2026.10.27 | Head + mask | 2026.10.30 |
-|---|---|---|---|
-| Missing colorful color, with a dull swatch | 43 | 7 | 3 |
-| Small speck color | 0 | 1 | 12 |
-| Same hue twice | 1 | 1 | 0 |
+| Check | 2026.10.27 | Head + mask | 2026.10.30 | HCT inputs |
+|---|---|---|---|---|
+| Missing colorful color, with a dull swatch | 43 | 7 | 3 | 3 |
+| Small speck color | 0 | 1 | 12 | 12 |
+| Same hue twice | 1 | 1 | 0 | 0 |
+
+The HCT column is a fresh run on the same 512 images. In it, 2026.10.30
+had 14 specks (p = 0.75 for the difference).
 
 Graph: 5.55 MB (+4 KB). Median per image, desktop Mac CPU: 15.3 ms vs
 14.6 ms on 1 thread, 9.7 ms vs 8.8 ms on 4 threads. The extra time is the
@@ -480,3 +498,5 @@ T).
   triads (D12, I5, I6, risks 7-8, appendix B2). R5 and D10 no longer set
   the graph's colors. Versions are release dates (section 5,
   CHANGELOG.md).
+- 2026-10-30: HCT inputs rejected (D12, appendix B2); color votes use the
+  grid.
